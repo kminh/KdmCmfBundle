@@ -41,9 +41,19 @@ class KdmCmfBundle extends Bundle
 
     private function _overrideConfiguration(ContainerBuilder $container)
     {
-        $container->addCompilerPass(new SymfonyCmfSimpleCmsCompilerPass());
-        $container->addCompilerPass(new SymfonyCmfRoutingCompilerPass());
-        $container->addCompilerPass(new SonataNewsCompilerPass());
+        $bundles = $container->getParameter('kernel.bundles');
+
+        if (isset($bundles['CmfSimpleCmsBundle'])) {
+            $container->addCompilerPass(new SymfonyCmfSimpleCmsCompilerPass());
+        }
+
+        if (isset($bundles['CmfRoutingBundle'])) {
+            $container->addCompilerPass(new SymfonyCmfRoutingCompilerPass());
+        }
+
+        if (isset($bundles['SonataNewsBundle'])) {
+            $container->addCompilerPass(new SonataNewsCompilerPass());
+        }
     }
 
     private function _loadConfiguration(ContainerBuilder $container)
