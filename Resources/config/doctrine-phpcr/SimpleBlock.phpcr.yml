@@ -1,0 +1,14 @@
+Kdm\CmfBundle\Doctrine\Phpcr\SimpleBlock:
+    fields:
+        subTitle:
+            type: string
+            nullable: true
+        abstract:
+            type: string
+            nullable: true
+        uri:
+            type: string
+            nullable: true
+        anchorText:
+            type: string
+            nullable: true

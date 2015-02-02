@@ -1,0 +1,17 @@
+dashboard:
+    label_simple_block: Basic Block
+
+list:
+    label_id: Id
+    label_title: Title
+
+form:
+    group_general: General
+    label_parent_document: Parent
+    label_name: Name
+    label_title: Title
+    label_sub_title: Subtitle
+    label_abstract: Abstract
+    label_body: Content
+    label_uri: Link to
+    label_anchor_text: Link anchor text
