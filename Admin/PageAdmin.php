@@ -44,10 +44,35 @@ class PageAdmin extends BasePageAdmin
     /**
      * {@inheritdoc}
      */
-    /* protected function configureFormFields(FormMapper $formMapper) */
-    /* { */
-    /*     parent::configureFormFields($formMapper); */
-    /* } */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        parent::configureFormFields($formMapper);
+
+        $formMapper
+            ->with('form.group_general', [
+                'class' => 'col-md-8'
+            ])
+                ->remove('body')
+                ->add('body', 'sonata_formatter_type', [
+                    'listener'             => true,
+                    'event_dispatcher'     => $formMapper->getFormBuilder()->getEventDispatcher(),
+                    'format_field'         => 'format',
+                    'source_field'         => 'body',
+                    'source_field_options' => [
+                        'attr' => [
+                            'rows' => 20
+                        ]
+                    ],
+                    'target_field'         => 'bodyFormatted',
+                    'ckeditor_context'     => 'lvs'
+                ])
+            ->end()
+            ->with('form.group_advanced', [
+                'class' => 'col-md-4'
+            ])
+            ->end()
+        ;
+    }
 
     /**
      * {@inheritdoc}

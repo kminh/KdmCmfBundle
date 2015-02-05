@@ -17,6 +17,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
+use Kdm\CmfBundle\Doctrine\Phpcr\Page;
+
 /**
  * Override Symfony CMF configuration
  *
@@ -31,8 +33,14 @@ class KdmCmfExtension extends Extension implements PrependExtensionInterface
      */
     public function prepend(ContainerBuilder $container)
     {
-        $prependConfig['dynamic']['persistence']['phpcr']['route_basepaths'] = array('/cms/routes');
-        $container->prependExtensionConfig('cmf_routing', $prependConfig);
+        // prepend CmfRoutingBundle config
+        /* $prependConfig['dynamic']['persistence']['phpcr']['route_basepaths'] = array('/cms/routes'); */
+        /* $container->prependExtensionConfig('cmf_routing', $prependConfig); */
+
+        // prepend CmfSimpleCmsBundle config
+        $prependConfig = [];
+        $prependConfig['persistence']['phpcr']['document_class'] = Page::class;
+        $container->prependExtensionConfig('cmf_simple_cms', $prependConfig);
     }
 
     public function load(array $configs, ContainerBuilder $container)
