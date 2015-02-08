@@ -1,2 +1,3 @@
 Kdm\CmfBundle\Doctrine\Phpcr\Page:
     fields:
+        internal: boolean

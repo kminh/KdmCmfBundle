@@ -70,6 +70,12 @@ class PageAdmin extends BasePageAdmin
             ->with('form.group_advanced', [
                 'class' => 'col-md-4'
             ])
+                ->add('internal', 'checkbox', [
+                    'required' => false,
+                    'help'     => 'form.help_internal'
+                ], [
+                    'translation_domain' => 'CmfSimpleCmsBundle'
+                ])
             ->end()
         ;
     }

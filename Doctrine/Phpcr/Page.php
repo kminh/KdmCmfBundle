@@ -39,6 +39,13 @@ class Page extends BasePage
      */
     protected $bodyFormatted;
 
+    /**
+     * Whether this page should be used for internal purpose only
+     *
+     * @var bool
+     */
+    protected $internal;
+
     public function setFormat($format)
     {
         $this->format = $format;
@@ -54,6 +61,11 @@ class Page extends BasePage
         $this->bodyFormatted = $bodyFormatted;
     }
 
+    public function setInternal($internal)
+    {
+        $this->internal = (bool) $internal;
+    }
+
     public function getFormat()
     {
         return $this->format;
@@ -67,5 +79,10 @@ class Page extends BasePage
     public function getBodyFormatted()
     {
         return $this->bodyFormatted;
+    }
+
+    public function isInternal()
+    {
+        return (bool) $this->internal;
     }
 }

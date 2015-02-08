@@ -15,3 +15,8 @@ form:
     label_body: Content
     label_uri: Link to
     label_anchor_text: Link anchor text
+    # simple page
+    label_internal: System page
+    help:
+        page:
+            label_internal: When checked, this page is used for internal purposes and should not be accessed directly.
