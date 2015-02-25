@@ -18,6 +18,8 @@ use Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page as BasePage;
  */
 class Page extends BasePage
 {
+    /* protected $idPrefix = '/cms/content/pages'; */
+
     /**
      * Format of the page body
      *
@@ -44,7 +46,7 @@ class Page extends BasePage
      *
      * @var bool
      */
-    protected $internal;
+    protected $internal = false;
 
     public function setFormat($format)
     {

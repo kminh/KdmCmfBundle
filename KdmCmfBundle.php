@@ -62,11 +62,9 @@ class KdmCmfBundle extends Bundle
             $container->addCompilerPass(
                 DoctrinePhpcrMappingsPass::createYamlMappingDriver(
                     array(
-                        /* realpath(__DIR__ . '/Resources/config/doctrine-model') => 'Symfony\Cmf\Bundle\BlockBundle\Model', */
                         realpath(__DIR__ . '/Resources/config/doctrine-phpcr') => 'Kdm\CmfBundle\Doctrine\Phpcr',
                     ),
-                    array('cmf_block.persistence.phpcr.manager_name'),
-                    'cmf_block.backend_type_phpcr',
+                    array(), false,
                     array('KdmCmfBundle' => 'Kdm\CmfBundle\Doctrine\Phpcr')
                 )
             );
