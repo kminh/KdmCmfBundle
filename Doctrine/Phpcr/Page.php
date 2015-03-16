@@ -48,6 +48,25 @@ class Page extends BasePage
      */
     protected $internal = false;
 
+    /**
+     * Datetime when this page is created
+     *
+     * @var \DateTime
+     */
+    protected $createdAt;
+
+    /**
+     * Datetime when this page is updated
+     *
+     * @var \DateTime
+     */
+    protected $updatedAt;
+
+    public function __construct()
+    {
+        $this->setOption('add_trailing_slash', true);
+    }
+
     public function setFormat($format)
     {
         $this->format = $format;
@@ -86,5 +105,41 @@ class Page extends BasePage
     public function isInternal()
     {
         return (bool) $this->internal;
+    }
+
+    public function setCreatedAt()
+    {
+        $this->createdAt = new \DateTime();
+
+        return $this;
+    }
+
+    public function setUpdatedAt()
+    {
+        $this->updatedAt = new \DateTime();
+
+        return $this;
+    }
+
+    public function getUpdatedTime()
+    {
+        // old pages don't have updatedAt field
+        if (is_null($this->updatedAt)) {
+            return 0;
+        }
+
+        return $this->updatedAt->format('U');
+    }
+
+    public function onPrePersist()
+    {
+        $this
+            ->setCreatedAt()
+            ->setUpdatedAt();
+    }
+
+    public function onPreUpdate()
+    {
+        $this->setUpdatedAt();
     }
 }

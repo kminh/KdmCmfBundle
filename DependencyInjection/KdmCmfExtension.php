@@ -15,7 +15,9 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
 use Kdm\CmfBundle\Doctrine\Phpcr\Page;
 
@@ -24,7 +26,7 @@ use Kdm\CmfBundle\Doctrine\Phpcr\Page;
  *
  * @author Khang Minh <kminh@kdmlabs.com>
  */
-class KdmCmfExtension extends Extension implements PrependExtensionInterface
+class KdmCmfExtension extends ConfigurableExtension implements PrependExtensionInterface
 {
     /**
      * Allow an extension to prepend the extension configurations.
@@ -43,11 +45,39 @@ class KdmCmfExtension extends Extension implements PrependExtensionInterface
         $container->prependExtensionConfig('cmf_simple_cms', $prependConfig);
     }
 
-    public function load(array $configs, ContainerBuilder $container)
+    protected function loadInternal(array $configs, ContainerBuilder $container)
     {
+        // load service definitions and parameters
+        $this->loadConfiguration($container);
+
+        // load configuration
+        if (isset($configs['templates'])) {
+            $this->loadTemplates($configs['templates'], $container);
+        }
+
+        if (isset($configs['form_types'])) {
+            $this->loadFormTypes($configs['form_types'], $container);
+        }
     }
 
-    public function getConfiguration(array $configs, ContainerBuilder $container)
+    protected function loadTemplates(array $templates, ContainerBuilder $container)
     {
+        $container->setParameter('kdm.cmf.templates', $templates);
+    }
+
+    protected function loadFormTypes(array $formTypes, ContainerBuilder $container)
+    {
+        $container->setParameter('kdm.cmf.form_types', $formTypes);
+    }
+
+    protected function loadConfiguration(ContainerBuilder $container)
+    {
+        $loader = new YamlFileLoader(
+            $container,
+            new FileLocator(__DIR__ . '/../Resources/config')
+        );
+
+        $loader->load('parameters.yml');
+        $loader->load('services.yml');
     }
 }

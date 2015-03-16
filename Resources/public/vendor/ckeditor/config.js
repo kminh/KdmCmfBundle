@@ -2,11 +2,17 @@
  * @license Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
+CKEDITOR.dtd.a.div = 1;
+CKEDITOR.dtd.a.p = 1;
+CKEDITOR.dtd.a.h3 = 1;
+CKEDITOR.dtd.$removeEmpty.i = false
 
 CKEDITOR.editorConfig = function( config ) {
 	// Define changes to default configuration here.
 	// For complete reference see:
 	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
+	// config.extraAllowedContent = 'h1 h2 h3 h4 h5 h6 div section article ul i span a[*](*){*}';
+	config.allowedContent = true;
 
 	// The toolbar groups arrangement, optimized for two toolbar rows.
 	config.toolbarGroups = [
@@ -31,8 +37,8 @@ CKEDITOR.editorConfig = function( config ) {
 	// config.removeButtons = 'Underline,Subscript,Superscript';
 
 	// Set the most common block elements.
-	config.format_tags = 'p;h1;h2;h3;pre';
+	config.format_tags = 'p;h1;h2;h3;h4;h5;pre';
 
 	// Simplify the dialog windows.
-	config.removeDialogTabs = 'image:advanced;link:advanced';
+	// config.removeDialogTabs = 'image:advanced;link:advanced';
 };

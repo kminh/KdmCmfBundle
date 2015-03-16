@@ -19,6 +19,10 @@ class SymfonyCmfSimpleCmsCompilerPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         $definition = $container->getDefinition('cmf_simple_cms.persistence.phpcr.admin.page');
+
         $definition->setClass('Kdm\CmfBundle\Admin\PageAdmin');
+        $definition->addMethodCall('setTemplateProvider', array(
+            $container->getDefinition('kdm.cmf.admin.template_provider')
+        ));
     }
 }

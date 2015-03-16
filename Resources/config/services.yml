@@ -1,0 +1,42 @@
+services:
+    # twig services
+    kdm.cmf.twig.loader.page_phpcr:
+        class: %kdm.cmf.twig.loader.page_phpcr.class%
+        arguments: [ @doctrine_phpcr ]
+        tags:
+            - { name: twig.loader }
+
+    # block services
+    kdm.cmf.block.form:
+        class: %kdm.cmf.block.form_service.class%
+        arguments:
+            - 'kdm.cmf.block.form'
+            - @templating
+            - @form.factory
+        tags:
+            - { name: sonata.block }
+
+    # bundle services
+    kdm.cmf.admin.template_provider:
+        class: %kdm.cmf.provider.admin.template.class%
+        arguments:
+            - %kdm.cmf.templates%
+    kdm.cmf.admin.form_type_provider:
+        class: %kdm.cmf.provider.admin.form_type.class%
+        arguments:
+            - %kdm.cmf.form_types%
+
+    # admin services
+    kdm.cmf.block.form.admin:
+        class: %kdm.cmf.block.form_admin.class%
+        arguments:
+            - ~
+            - %kdm.cmf.block.persistence.phpcr.form_document.class%
+            - ~
+        calls:
+            - [ setRouteBuilder, [@sonata.admin.route.path_info_slashes] ]
+            - [ setRootPath, [%cmf_block.persistence.phpcr.block_basepath%] ]
+            - [ setTemplateProvider, [@kdm.cmf.admin.template_provider] ]
+            - [ setFormTypeProvider, [@kdm.cmf.admin.form_type_provider] ]
+        tags:
+            - { name: sonata.admin, manager_type: doctrine_phpcr, group: dashboard.cmf, label_catalogue: 'KdmCmfBundle', label: 'dashboard.label_form_block',  label_translator_strategy: 'sonata.admin.label.strategy.underscore' }

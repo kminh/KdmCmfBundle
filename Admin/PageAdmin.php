@@ -19,11 +19,21 @@ use Sonata\AdminBundle\Route\RouteCollection;
 
 use Symfony\Cmf\Bundle\SimpleCmsBundle\Admin\PageAdmin as BasePageAdmin;
 
+use Kdm\CmfBundle\Doctrine\Phpcr\Page;
+use Kdm\CmfBundle\Model\Admin\TemplateProviderInterface;
+
 /**
  * @author Khang Minh <kminh@kdmlabs.com>
  */
 class PageAdmin extends BasePageAdmin
 {
+    protected $templateProvider;
+
+    public function setTemplateProvider(TemplateProviderInterface $provider)
+    {
+        $this->templateProvider = $provider;
+    }
+
     public function setRouteRoot($routeRoot)
     {
         // make limitation on base path work
@@ -33,13 +43,19 @@ class PageAdmin extends BasePageAdmin
         $this->routeRoot = $routeRoot;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    /* protected function configureRoutes(RouteCollection $collection) */
-    /* { */
-    /*     // Custom admin routes, can use: add(), remove(), clearExcept(), getRouterIdParameter() */
-    /* } */
+    protected function configureFieldsForDefaults($dynamicDefaults)
+    {
+        $defaults = parent::configureFieldsForDefaults($dynamicDefaults);
+
+        $defaults['_template'] = array('_template', 'choice', array(
+            'required'           => false,
+            'choices'            => $this->templateProvider->getTemplatesForClass(Page::class),
+            'placeholder'        => 'form.placeholder_template',
+            'translation_domain' => 'KdmCmfBundle'
+        ));
+
+        return $defaults;
+    }
 
     /**
      * {@inheritdoc}
@@ -83,21 +99,23 @@ class PageAdmin extends BasePageAdmin
     /**
      * {@inheritdoc}
      */
-    /* protected function configureDatagridFilters(DatagridMapper $datagridMapper) */
-    /* { */
-    /*     // Fields to be shown on filter forms */
-    /* } */
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        parent::configureDatagridFilters($datagridMapper);
+
+        $datagridMapper
+            ->add('internal');
+    }
 
     /**
      * {@inheritdoc}
      */
-    /* protected function configureListFields(ListMapper $listMapper) */
-    /* { */
-    /*     // Fields to be shown when listing items */
-    /* } */
+    protected function configureListFields(ListMapper $listMapper)
+    {
+        parent::configureListFields($listMapper);
 
-    /* protected function configureShowFields(ShowMapper $showMapper) */
-    /* { */
-    /*     // Fields to be shown when viewing an item */
-    /* } */
+        $listMapper
+            ->remove('label')
+            ->add('internal', 'boolean', array('editable' => 'yes'));
+    }
 }

@@ -2,3 +2,10 @@ Kdm\CmfBundle\Doctrine\Phpcr\Page:
     fields:
         internal:
             type: boolean
+        createdAt:
+            type: date
+        updatedAt:
+            type: date
+    lifecycleCallbacks:
+        prePersist: [ onPrePersist ]
+        preUpdate: [ onPreUpdate ]

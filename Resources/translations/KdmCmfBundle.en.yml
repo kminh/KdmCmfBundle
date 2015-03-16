@@ -1,0 +1,41 @@
+dashboard:
+    cmf: Contents
+    label_form_block: Form block
+
+# blocks
+breadcrumb:
+    link_form_block_list: Form Blocks
+    link_form_block_create: Create
+    link_form_block_edit: Edit
+    link_form_block_delete: Delete
+
+list:
+    label_id: Id
+    label_name: Name
+
+filter:
+    label_name: Name
+
+form:
+    # general
+    group_general: General
+    label_parent_document: Parent
+    label_name: Name
+    label_enabled: Enabled
+
+    group_settings: Settings
+
+    # form block
+    label_form_type: Form type (fields definitions)
+    label_form_title: Form title
+    label_form_class: Form CSS classes
+    label_template: Form template
+    placeholder_form_type: Select a form type
+    placeholder_template: Default template
+    help_form_class: Use <code>.form-ajax</code> to submit the form via ajax.
+
+    # menu block
+    label_menu_template: Menu template
+    placeholder_menu_template: Default template
+
+# page
