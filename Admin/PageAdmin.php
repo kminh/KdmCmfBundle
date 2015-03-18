@@ -83,6 +83,10 @@ class PageAdmin extends BasePageAdmin
                     'ckeditor_context'     => 'lvs'
                 ])
             ->end()
+            /* ->with('form.group_seo', [ */
+            /*     'class' => 'col-md-4' */
+            /* ]) */
+            /* ->end() */
             ->with('form.group_advanced', [
                 'class' => 'col-md-4'
             ])
@@ -92,7 +96,7 @@ class PageAdmin extends BasePageAdmin
                 ], [
                     'translation_domain' => 'CmfSimpleCmsBundle'
                 ])
-            ->end()
+                ->end()
         ;
     }
 

@@ -50,7 +50,10 @@ class ContainerBlockAdmin extends Admin
             ->with('form.group_settings')
                 ->add('settings', 'sonata_type_immutable_array', array(
                     'keys' => array(
-                        array('divisible_by', 'text', array('required' => false, 'label' => 'form.label_divisible_by')),
+                        array('divisible_by', 'text', array(
+                            'required'   => false,
+                            'label'      => 'form.label_divisible_by'
+                        )),
                         array('divisible_class', 'text', array('required' => false, 'label' => 'form.label_divisible_class')),
                         array('child_class', 'text', array('required' => false, 'label' => 'form.label_child_class'))
                     ),

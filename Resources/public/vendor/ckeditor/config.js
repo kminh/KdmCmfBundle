@@ -6,6 +6,7 @@ CKEDITOR.dtd.a.div = 1;
 CKEDITOR.dtd.a.p = 1;
 CKEDITOR.dtd.a.h3 = 1;
 CKEDITOR.dtd.$removeEmpty.i = false
+CKEDITOR.dtd.$removeEmpty.span = false
 
 CKEDITOR.editorConfig = function( config ) {
 	// Define changes to default configuration here.
@@ -13,6 +14,7 @@ CKEDITOR.editorConfig = function( config ) {
 	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
 	// config.extraAllowedContent = 'h1 h2 h3 h4 h5 h6 div section article ul i span a[*](*){*}';
 	config.allowedContent = true;
+	config.removePlugins = 'autogrow,divarea,mediaembed';
 
 	// The toolbar groups arrangement, optimized for two toolbar rows.
 	config.toolbarGroups = [

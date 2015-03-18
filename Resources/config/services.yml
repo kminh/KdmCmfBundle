@@ -5,6 +5,11 @@ services:
         arguments: [ @doctrine_phpcr ]
         tags:
             - { name: twig.loader }
+    kdm.cmf.twig.extension.content:
+        class: %kdm.cmf.twig.extension.content.class%
+        arguments: [ @kernel, @assetic.filter_manager ]
+        tags:
+            - { name: twig.extension }
 
     # block services
     kdm.cmf.block.form:

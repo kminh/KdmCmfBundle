@@ -6,6 +6,8 @@ Kdm\CmfBundle\Doctrine\Phpcr\Page:
             type: date
         updatedAt:
             type: date
+    child:
+        seoMetadata: ~
     lifecycleCallbacks:
         prePersist: [ onPrePersist ]
         preUpdate: [ onPreUpdate ]

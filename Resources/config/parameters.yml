@@ -4,6 +4,7 @@ parameters:
     kdm.cmf.form_types: []
     # classes
     kdm.cmf.twig.loader.page_phpcr.class: Kdm\CmfBundle\Twig\Loader\Page
+    kdm.cmf.twig.extension.content.class: Kdm\CmfBundle\Twig\Extension\ContentExtension
     kdm.cmf.block.form_service.class: Kdm\CmfBundle\Block\FormBlockService
     kdm.cmf.block.form_admin.class: Kdm\CmfBundle\Admin\FormBlockAdmin
     kdm.cmf.block.persistence.phpcr.form_document.class: Kdm\CmfBundle\Doctrine\Phpcr\FormBlock

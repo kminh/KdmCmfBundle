@@ -4,6 +4,7 @@
     "require": {
         "php": "~5.4",
         "symfony/config": "~2.3",
+        "symfony/assetic-bundle": "~2.6",
         "symfony-cmf/simple-cms-bundle": "~1.2",
         "symfony-cmf/block-bundle": "~1.2",
         "symfony-cmf/routing-bundle": "~1.3",

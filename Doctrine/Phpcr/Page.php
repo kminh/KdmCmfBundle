@@ -11,14 +11,18 @@
 
 namespace Kdm\CmfBundle\Doctrine\Phpcr;
 
+use Symfony\Cmf\Bundle\SeoBundle\SeoAwareTrait;
+use Symfony\Cmf\Bundle\SeoBundle\SeoAwareInterface;
 use Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page as BasePage;
 
 /**
  * @author Khang Minh <kminh@kdmlabs.com>
  */
-class Page extends BasePage
+class Page extends BasePage implements SeoAwareInterface
 {
     /* protected $idPrefix = '/cms/content/pages'; */
+
+    use SeoAwareTrait;
 
     /**
      * Format of the page body
