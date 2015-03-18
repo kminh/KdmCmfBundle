@@ -43,7 +43,8 @@ class Page implements \Twig_LoaderInterface, \Twig_ExistsLoaderInterface
             return '';
         }
 
-        return $page->getBody();
+        // need to convert escaped chars back just in case
+        return html_entity_decode($page->getBody(), ENT_QUOTES);
     }
 
     /**
