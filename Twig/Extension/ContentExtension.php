@@ -37,7 +37,7 @@ class ContentExtension extends \Twig_Extension
     public function getFilters()
     {
         return array(
-            new \Twig_SimpleFilter('uglifyjs', array($this, 'uglifyjs'), array('is_safe' => array('js')))
+            new \Twig_SimpleFilter('uglifyjs', array($this, 'uglifyjs'), array('is_safe' => array('all')))
         );
     }
 

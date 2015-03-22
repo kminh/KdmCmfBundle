@@ -125,6 +125,11 @@ class Page extends BasePage implements SeoAwareInterface
         return $this;
     }
 
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
     public function getUpdatedTime()
     {
         // old pages don't have updatedAt field
