@@ -57,6 +57,15 @@ class PageAdmin extends BasePageAdmin
         return $defaults;
     }
 
+    protected function configureFieldsForOptions(array $dynamicOptions)
+    {
+        $options = parent::configureFieldsForOptions($dynamicOptions);
+
+        $options['compiler_class'] = array('compiler_class', 'hidden', [ 'label' => false, 'required' => false ]);
+
+        return $options;
+    }
+
     /**
      * {@inheritdoc}
      */
