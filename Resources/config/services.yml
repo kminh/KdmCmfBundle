@@ -45,3 +45,9 @@ services:
             - [ setFormTypeProvider, [@kdm.cmf.admin.form_type_provider] ]
         tags:
             - { name: sonata.admin, manager_type: doctrine_phpcr, group: dashboard.cmf, label_catalogue: 'KdmCmfBundle', label: 'dashboard.label_form_block',  label_translator_strategy: 'sonata.admin.label.strategy.underscore' }
+
+     # seo services (temp)
+    cmf_seo.extractor_strategy.extras:
+        class: Symfony\Cmf\Bundle\SeoBundle\Extractor\ExtrasExtractor
+        tags:
+            - { name: cmf_seo.extractor }

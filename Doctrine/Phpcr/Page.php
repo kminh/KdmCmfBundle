@@ -13,12 +13,18 @@ namespace Kdm\CmfBundle\Doctrine\Phpcr;
 
 use Symfony\Cmf\Bundle\SeoBundle\SeoAwareTrait;
 use Symfony\Cmf\Bundle\SeoBundle\SeoAwareInterface;
+use Symfony\Cmf\Bundle\SeoBundle\Extractor;
 use Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page as BasePage;
 
 /**
  * @author Khang Minh <kminh@kdmlabs.com>
  */
-class Page extends BasePage implements SeoAwareInterface
+class Page extends BasePage implements
+    SeoAwareInterface,
+    Extractor\DescriptionReadInterface,
+    Extractor\TitleReadInterface,
+    /* Extractor\OriginalRouteReadInterface, */
+    Extractor\ExtrasReadInterface
 {
     /* protected $idPrefix = '/cms/content/pages'; */
 
@@ -104,6 +110,33 @@ class Page extends BasePage implements SeoAwareInterface
     public function getBodyFormatted()
     {
         return $this->bodyFormatted;
+    }
+
+    public function getSeoTitle()
+    {
+        return $this->getSeoMetadata()->getTitle() ?: $this->getTitle();
+    }
+
+    public function getSeoDescription()
+    {
+        $description = $this->getSeoMetadata()->getMetaDescription() ?: substr(strip_tags($this->getBody()), 0, 150);
+
+        return trim(preg_replace('/\s+/', ' ', strip_tags($description)));
+    }
+
+    public function getSeoOriginalRoute()
+    {
+        return $this->id;
+    }
+
+    public function getSeoExtras()
+    {
+        return array(
+            'property' => array(
+                'og:title'       => $this->getSeoTitle(),
+                'og:description' => $this->getSeoDescription(),
+            )
+        );
     }
 
     public function isInternal()

@@ -1,0 +1,7 @@
+{% extends "SonataAdminBundle:CRUD:edit.html.twig" %}
+
+{% form_theme form _self %}
+
+{% block burgov_key_value_widget %}
+    {{- block('sonata_type_native_collection_widget') -}}
+{% endblock %}
