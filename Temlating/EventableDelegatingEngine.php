@@ -85,7 +85,6 @@ class EventableDelegatingEngine extends DelegatingEngine
         return $this->container->get('request');
     }
 
-
     /**
      * Resolved engine ids to their real engine instances from the container.
      */
