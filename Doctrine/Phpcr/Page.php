@@ -11,9 +11,11 @@
 
 namespace Kdm\CmfBundle\Doctrine\Phpcr;
 
+use Symfony\Cmf\Bundle\SeoBundle\Doctrine\Phpcr\SeoMetadata;
 use Symfony\Cmf\Bundle\SeoBundle\SeoAwareTrait;
 use Symfony\Cmf\Bundle\SeoBundle\SeoAwareInterface;
 use Symfony\Cmf\Bundle\SeoBundle\Extractor;
+
 use Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page as BasePage;
 
 /**
@@ -74,6 +76,11 @@ class Page extends BasePage implements
 
     public function __construct()
     {
+        // use this to avoid an error in phpcr proxy class
+        // @see https://github.com/symfony-cmf/SeoBundle/issues/201
+        $this->seoMetadata = new SeoMetadata();
+
+        // add trailing slash by default
         $this->setOption('add_trailing_slash', true);
     }
 

@@ -46,6 +46,20 @@ services:
         tags:
             - { name: sonata.admin, manager_type: doctrine_phpcr, group: dashboard.cmf, label_catalogue: 'KdmCmfBundle', label: 'dashboard.label_form_block',  label_translator_strategy: 'sonata.admin.label.strategy.underscore' }
 
+     # listeners
+    # kdm.cmf.listener.on_kernel_events:
+    #     class: %kdm.cmf.listener.on_kernel_events.class%
+    #     arguments:
+    #         - @cmf_seo.presentation
+    #     tags:
+    #         - { name: kernel.event_subscriber }
+    kdm.cmf.listener.on_delegating_engine_events:
+        class: %kdm.cmf.listener.delegating_engine_events.class%
+        arguments:
+            - @cmf_seo.presentation
+        tags:
+            - { name: kernel.event_subscriber }
+
      # seo services (temp)
     cmf_seo.extractor_strategy.extras:
         class: Symfony\Cmf\Bundle\SeoBundle\Extractor\ExtrasExtractor
