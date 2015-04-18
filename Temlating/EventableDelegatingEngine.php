@@ -82,7 +82,11 @@ class EventableDelegatingEngine extends DelegatingEngine
      */
     protected function getRequest()
     {
-        return $this->container->get('request');
+        try {
+            return $this->container->get('request');
+        } catch (\Exception $e) {
+            return null;
+        }
     }
 
     /**
