@@ -54,6 +54,10 @@ class PageAdmin extends BasePageAdmin
             'translation_domain' => 'KdmCmfBundle'
         ));
 
+        if (isset($defaults['_locale'])) {
+            unset($defaults['_locale']);
+        }
+
         return $defaults;
     }
 
@@ -77,7 +81,14 @@ class PageAdmin extends BasePageAdmin
             ->with('form.group_general', [
                 'class' => 'col-md-8'
             ])
+                ->remove('label')
+                ->remove('title')
                 ->remove('body')
+                ->add('i18nName', 'text', [
+                    'required' => false,
+                    'help' => 'form.help.i18n_name'
+                ])
+                ->add('title')
                 ->add('body', 'sonata_formatter_type', [
                     'listener'             => true,
                     'event_dispatcher'     => $formMapper->getFormBuilder()->getEventDispatcher(),
@@ -105,7 +116,13 @@ class PageAdmin extends BasePageAdmin
                 ], [
                     'translation_domain' => 'CmfSimpleCmsBundle'
                 ])
-                ->end()
+                ->reorder([
+                    'locale',
+                    'variablePattern',
+                    'defaults',
+                    'options'
+                ])
+            ->end()
         ;
     }
 

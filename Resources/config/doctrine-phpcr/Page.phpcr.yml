@@ -1,5 +1,9 @@
 Kdm\CmfBundle\Doctrine\Phpcr\Page:
     fields:
+        i18nName:
+            type: string
+            translated: true
+            nullable: true
         internal:
             type: boolean
         createdAt:
@@ -8,6 +12,11 @@ Kdm\CmfBundle\Doctrine\Phpcr\Page:
             type: date
     child:
         seoMetadata: ~
+    referrers:
+        routes:
+            referringDocument: 'Kdm\CmfBundle\Doctrine\Phpcr\Route'
+            referencedBy: content
+            cascade: [ persist, remove ]
     lifecycleCallbacks:
         prePersist: [ onPrePersist ]
         preUpdate: [ onPreUpdate ]

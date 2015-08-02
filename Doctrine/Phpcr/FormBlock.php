@@ -11,15 +11,44 @@
 
 namespace Kdm\CmfBundle\Doctrine\Phpcr;
 
+use Symfony\Cmf\Bundle\CoreBundle\Translatable\TranslatableInterface;
 use Symfony\Cmf\Bundle\BlockBundle\Doctrine\Phpcr\AbstractBlock;
+
+use Kdm\CmfBundle\Translation\LocaleAwareEntity;
 
 /**
  * @author Khang Minh <kminh@kdmlabs.com>
  */
-class FormBlock extends AbstractBlock
+class FormBlock extends AbstractBlock implements TranslatableInterface
 {
+    protected $title;
+
     public function getType()
     {
         return 'kdm.cmf.block.form';
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return $this
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 }

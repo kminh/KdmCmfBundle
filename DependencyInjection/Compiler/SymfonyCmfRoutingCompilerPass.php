@@ -14,11 +14,17 @@ namespace Kdm\CmfBundle\DependencyInjection\Compiler;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+use Kdm\CmfBundle\Admin\RouteAdmin;
+use Kdm\CmfBundle\Doctrine\Phpcr\Route;
+
 class SymfonyCmfRoutingCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
         $definition = $container->getDefinition('cmf_routing.route_admin');
-        $definition->setClass('Kdm\CmfBundle\Admin\RouteAdmin');
+
+        // use KdmCmfBundle's route admin class and route document
+        $container->setParameter('cmf_routing.route_admin.class', RouteAdmin::class);
+        $container->setParameter('cmf_routing.route_document.class', Route::class);
     }
 }

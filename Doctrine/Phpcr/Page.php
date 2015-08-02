@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of the Kdm package.
+ * This file is part of the KdmCmfBundle package.
  *
  * (c) 2015 Khang Minh <kminh@kdmlabs.com>
  *
@@ -11,12 +11,19 @@
 
 namespace Kdm\CmfBundle\Doctrine\Phpcr;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
+use Symfony\Cmf\Component\Routing\RouteObjectInterface;
+
 use Symfony\Cmf\Bundle\SeoBundle\Doctrine\Phpcr\SeoMetadata;
 use Symfony\Cmf\Bundle\SeoBundle\SeoAwareTrait;
 use Symfony\Cmf\Bundle\SeoBundle\SeoAwareInterface;
 use Symfony\Cmf\Bundle\SeoBundle\Extractor;
 
 use Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page as BasePage;
+
+use Kdm\CmfBundle\Translation\TranslatableNameInterface;
+use Kdm\CmfBundle\Translation\TranslatableNameTrait;
 
 /**
  * @author Khang Minh <kminh@kdmlabs.com>
@@ -26,11 +33,14 @@ class Page extends BasePage implements
     Extractor\DescriptionReadInterface,
     Extractor\TitleReadInterface,
     /* Extractor\OriginalRouteReadInterface, */
-    Extractor\ExtrasReadInterface
+    Extractor\ExtrasReadInterface,
+    TranslatableNameInterface
 {
     /* protected $idPrefix = '/cms/content/pages'; */
 
     use SeoAwareTrait;
+
+    use TranslatableNameTrait;
 
     /**
      * Format of the page body
@@ -74,11 +84,18 @@ class Page extends BasePage implements
      */
     protected $updatedAt;
 
+    /**
+     * @var ArrayCollection of RouteObjectInterface
+     */
+    protected $routes;
+
     public function __construct()
     {
         // use this to avoid an error in phpcr proxy class
         // @see https://github.com/symfony-cmf/SeoBundle/issues/201
         $this->seoMetadata = new SeoMetadata();
+
+        $this->routes = new ArrayCollection();
 
         // add trailing slash by default
         $this->setOption('add_trailing_slash', true);
@@ -117,6 +134,17 @@ class Page extends BasePage implements
     public function getBodyFormatted()
     {
         return $this->bodyFormatted;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getRoutes()
+    {
+        /* $routes = clone $this->routes; */
+        /* $routes->add($this); */
+
+        return $this->routes;
     }
 
     public function getSeoTitle()
@@ -190,5 +218,10 @@ class Page extends BasePage implements
     public function onPreUpdate()
     {
         $this->setUpdatedAt();
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
     }
 }

@@ -3,3 +3,8 @@ list:
 
 filter:
     label_internal: System Page
+
+form:
+    label_i18n_name: Localized last URL part
+    help:
+        i18n_name: Set this if you want to have a localized url. Leave blank to use the "Last url part" set above.

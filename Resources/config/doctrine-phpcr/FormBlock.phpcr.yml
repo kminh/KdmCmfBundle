@@ -1,2 +1,8 @@
 Kdm\CmfBundle\Doctrine\Phpcr\FormBlock:
     referenceable: true
+    translator: attribute
+    locale: locale
+    fields:
+        title:
+            type: string
+            translated: true

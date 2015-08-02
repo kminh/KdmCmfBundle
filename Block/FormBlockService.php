@@ -73,8 +73,11 @@ class FormBlockService extends BaseBlockService implements BlockServiceInterface
             return $response;
         }
 
+        $formName = str_replace('-', '_', $block->getName());
+        $formName = str_replace('form_', '', $formName);
+
         try {
-            $form = $this->formFactory->createNamed('', $blockContext->getSetting('form_type'));
+            $form = $this->formFactory->createNamed($formName, $blockContext->getSetting('form_type'));
         } catch (\Exception $e) {
             return $response;
         }

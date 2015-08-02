@@ -24,6 +24,8 @@ use Symfony\Cmf\Bundle\RoutingBundle\Admin\RouteAdmin as BaseRouteAdmin;
  */
 class RouteAdmin extends BaseRouteAdmin
 {
+    protected $translationDomain = 'KdmCmfBundle';
+
     public function setRouteRoot($routeRoot)
     {
         // make limitation on base path work
@@ -44,9 +46,66 @@ class RouteAdmin extends BaseRouteAdmin
     /**
      * {@inheritdoc}
      */
-    /* protected function configureFormFields(FormMapper $formMapper) */
-    /* { */
-    /* } */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        parent::configureFormFields($formMapper);
+
+        $formMapper
+            ->remove('variablePattern')
+            ->remove('defaults')
+            ->with('form.group_general', array(
+                'class' => 'col-md-8'
+            ))
+            ->end()
+            ->with('form.group_advanced', array(
+                'translation_domain' => 'CmfRoutingBundle',
+                'class' => 'col-md-4'
+            ))
+                ->add(
+                    'options', 'sonata_type_immutable_array', array(
+                        'keys'  => $this->configureFieldsForOptions($this->getSubject()->getOptions()),
+                        'label' => false
+                    )
+                )
+            ->end()
+        ;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function configureFieldsForDefaults($dynamicOptions)
+    {
+        $defaults = parent::configureFieldsForDefaults($dynamicOptions);
+
+        if (isset($defaults['_locale'])) {
+            unset($defaults['_locale']);
+        }
+
+        return $defaults;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function configureFieldsForOptions(array $dynamicOptions)
+    {
+        $options = parent::configureFieldsForOptions($dynamicOptions);
+
+        $removeOptions = [
+            'add_locale_pattern',
+            'add_format_pattern',
+            'compiler_class'
+        ];
+
+        foreach ($removeOptions as $name) {
+            if (isset($options[$name])) {
+                unset($options[$name]);
+            }
+        }
+
+        return $options;
+    }
 
     /**
      * {@inheritdoc}

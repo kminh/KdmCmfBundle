@@ -54,6 +54,10 @@ class FormBlockAdmin extends BaseBlockAdmin
                 ->add('enabled', 'checkbox', array('required' => false))
             ->end()
             ->with('form.group_settings')
+                ->add('title', 'text', [
+                    'required' => false,
+                    'label'    => 'form.label_form_title'
+                ])
                 ->add('settings', 'sonata_type_immutable_array', array(
                     'keys' => array(
                         array('form_type', 'choice', array(
@@ -61,10 +65,6 @@ class FormBlockAdmin extends BaseBlockAdmin
                             'label'       => 'form.label_form_type',
                             'choices'     => $this->formTypeProvider->getFormTypes(),
                             'placeholder' => 'form.placeholder_form_type'
-                        )),
-                        array('form_title', 'text', array(
-                            'required' => false,
-                            'label'    => 'form.label_form_title'
                         )),
                         array('form_class', 'text', array(
                             'required'    => false,

@@ -22,6 +22,14 @@ services:
             - { name: sonata.block }
 
     # bundle services
+    i18n_route_creator:
+        alias: kdm.cmf.doctrine_phpcr.i18n_route_creator
+    kdm.cmf.doctrine_phpcr.i18n_route_creator:
+        class: %kdm.cmf.doctrine_phpcr.i18n_route_creator.class%
+        public: false
+        arguments:
+            - @service_container
+
     kdm.cmf.admin.template_provider:
         class: %kdm.cmf.provider.admin.template.class%
         arguments:
@@ -54,13 +62,28 @@ services:
     #     tags:
     #         - { name: kernel.event_subscriber }
     kdm.cmf.listener.on_delegating_engine_events:
-        class: %kdm.cmf.listener.delegating_engine_events.class%
+        class: %kdm.cmf.listener.on_delegating_engine_events.class%
         arguments:
             - @cmf_seo.presentation
         tags:
             - { name: kernel.event_subscriber }
 
-     # seo services (temp)
+    kdm.cmf.listener.translatable_document_subscriber:
+        class: %kdm.cmf.listener.translatable_document_subscriber.class%
+        arguments:
+            - @i18n_route_creator
+            - @doctrine_phpcr
+        tags:
+            - { name: kernel.event_subscriber }
+
+    kdm.cmf.listener.doctrine.translatable_name_subscriber:
+        class: %kdm.cmf.listener.doctrine.translatable_name_subscriber.class%
+        arguments:
+            - @i18n_route_creator
+        tags:
+            - { name: doctrine_phpcr.event_subscriber }
+
+    # seo services (temp)
     cmf_seo.extractor_strategy.extras:
         class: Symfony\Cmf\Bundle\SeoBundle\Extractor\ExtrasExtractor
         tags:

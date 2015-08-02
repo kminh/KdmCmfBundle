@@ -8,8 +8,11 @@ parameters:
     kdm.cmf.block.form_service.class: 'Kdm\CmfBundle\Block\FormBlockService'
     kdm.cmf.block.form_admin.class: 'Kdm\CmfBundle\Admin\FormBlockAdmin'
     kdm.cmf.block.persistence.phpcr.form_document.class: 'Kdm\CmfBundle\Doctrine\Phpcr\FormBlock'
+    kdm.cmf.listener.translatable_document_subscriber.class: 'Kdm\CmfBundle\EventListener\Admin\TranslatableDocumentSubscriber'
+    kdm.cmf.doctrine_phpcr.i18n_route_creator.class: 'Kdm\CmfBundle\Translation\Phpcr\I18nRouteCreator'
     kdm.cmf.provider.admin.template.class: 'Kdm\CmfBundle\Model\Admin\TemplateProvider'
     kdm.cmf.provider.admin.form_type.class: 'Kdm\CmfBundle\Model\Admin\FormTypeProvider'
     # listeners
     kdm.cmf.listener.on_kernel_events.class: 'Kdm\CmfBundle\Event\Listener\KernelEventsSubscriber'
-    kdm.cmf.listener.delegating_engine_events.class: 'Kdm\CmfBundle\Event\Listener\DelegatingEngineEventsSubscriber'
+    kdm.cmf.listener.on_delegating_engine_events.class: 'Kdm\CmfBundle\Event\Listener\DelegatingEngineEventsSubscriber'
+    kdm.cmf.listener.doctrine.translatable_name_subscriber.class: 'Kdm\CmfBundle\Doctrine\EventListener\TranslatableNameSubscriber'
