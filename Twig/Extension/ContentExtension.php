@@ -43,9 +43,8 @@ class ContentExtension extends \Twig_Extension
 
     public function uglifyjs($content)
     {
-        // if not in prod environment or we don't have uglifyjs ready don't
-        // process the content
-        if ($this->kernel->getEnvironment() != 'prod' || is_null($this->uglifyjs)) {
+        // if debugging or we don't have uglifyjs ready don't process the content
+        if ($this->kernel->isDebug() || is_null($this->uglifyjs)) {
             return $content;
         }
 

@@ -19,6 +19,7 @@ use Doctrine\Bundle\PHPCRBundle\DependencyInjection\Compiler\DoctrinePhpcrMappin
 use Kdm\CmfBundle\DependencyInjection\Compiler\SymfonyFrameworkCompilerPass;
 use Kdm\CmfBundle\DependencyInjection\Compiler\SymfonyCmfSimpleCmsCompilerPass;
 use Kdm\CmfBundle\DependencyInjection\Compiler\SymfonyCmfRoutingCompilerPass;
+use Kdm\CmfBundle\DependencyInjection\Compiler\SymfonyCmfCoreCompilerPass;
 use Kdm\CmfBundle\DependencyInjection\Compiler\SonataNewsCompilerPass;
 
 /**
@@ -46,6 +47,10 @@ class KdmCmfBundle extends Bundle
 
         if (isset($bundles['FrameworkBundle'])) {
             $container->addCompilerPass(new SymfonyFrameworkCompilerPass());
+        }
+
+        if (isset($bundles['CmfCoreBundle'])) {
+            $container->addCompilerPass(new SymfonyCmfCoreCompilerPass());
         }
 
         if (isset($bundles['CmfSimpleCmsBundle'])) {
